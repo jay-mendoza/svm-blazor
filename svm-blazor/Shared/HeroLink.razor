@@ -1,0 +1,40 @@
+<article class="project">
+    <a href="@MainProject.LinkHref" target="_blank" rel="noreferrer">
+        <div style="background-image: url(@MainProject.ImageUrl)">
+        </div>
+    </a>
+    <div>
+        <header>@MainProject.Title <span hidden="@(!MainProject.IsPro)" class="mdi mdi-professional-hexagon"></span></header>
+        <div>@MainProject.Description</div>
+        <a href="@MainProject.LinkHref" target="_blank">@MainProject.LinkHref</a>
+    </div>
+    <aside>@MainProject.DevComment</aside>
+</article>
+
+@code {
+
+    [Parameter]
+    public Project MainProject { get; set; }
+
+    public class Project {
+
+        /// <summary>Gets or sets the title.</summary>
+        public string Title { get; set; }
+
+        /// <summary>Gets or sets the decription.</summary>
+        public string Description { get; set; }
+
+        /// <summary>Gets or sets the Link HREF.</summary>
+        public string LinkHref { get; set; }
+
+        /// <summary>Gets or sets the Image URL.</summary>
+        public string ImageUrl { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether the item is professional work./summary>
+        public bool IsPro { get; set; }
+
+        /// <summary>Gets or sets the decription of the Web Project./summary>
+        public string DevComment { get; set; }
+    }
+    
+}

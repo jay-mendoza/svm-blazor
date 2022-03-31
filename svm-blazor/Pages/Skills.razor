@@ -1,0 +1,86 @@
+@page "/skills"
+@inject HttpClient Http
+
+<section>
+    <h1>technical skills <span class="mdi mdi-code-tags-check"></span></h1>
+    <p>
+        <ul class="skills">
+            @if (skills == null)
+            {
+                <li>Loading...</li>
+            }
+            else
+            {
+                @foreach (var skill in skills)
+                {
+                    <li>
+                        <span class="icon" style="background-image:url('@skill.ImageUrl');"></span>
+                        <span class="label">@skill.Name</span>
+                    </li>
+                }
+            }
+        </ul>
+    </p>
+</section>
+
+<section>
+    <h1>certifications <span class="mdi mdi-certificate"></span></h1>
+    <p>
+        <ul class="certificates">
+            @if (certificates == null)
+            {
+                <li>Loading...</li>
+            }
+            else
+            {
+                @foreach (var certificate in certificates)
+                {
+                    <li>
+                        <span style="background-image:url('@($"assets/images/certificates/{certificate}.png")');"></span>
+                    </li>
+                }
+            }
+        </ul>
+    </p>
+</section>
+
+<section>
+    <h1>education <span class="mdi mdi-school"></span></h1>
+    <p>
+        <article class="education">
+            <div>
+                <h1>2007 – 2011</h1>
+                <div>
+                    <span>Masters&nbsp;Science&nbsp;in Computer&nbsp;Engineering</span>
+                    <span>Mapúa Institute of Technology</span>
+                </div>
+            </div>
+            <div>
+                <h1>2002 – 2006<span classs="mdi mdi-school"></span></h1>
+                <div>
+                    <span>Bachelor&nbsp;Science&nbsp;in Computer&nbsp;Engineering</span>
+                    <span>Mapúa Institute of Technology</span>
+                </div>
+            </div>
+        </article>
+    </p>
+</section>
+
+
+@functions {
+    Skill[] skills;
+    string[] certificates;
+
+    protected override async Task OnInitializedAsync()
+    {
+        skills = await Http.GetFromJsonAsync<Skill[]>("assets/json/skills.json");
+        certificates = await Http.GetFromJsonAsync<string[]>("assets/json/certificates.json");
+    }
+
+    class Skill
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get { return $"assets/images/skills/{this.ID}.png"; } }
+    }
+}
